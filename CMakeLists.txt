@@ -22,14 +22,14 @@ if (WIN32)
     include_directories(${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
     link_directories(${SDL2_LIB_DIR} ${SDL2_IMAGE_LIB_DIR} ${SDL2_TTF_LIB_DIR})
 
-    add_executable(NGUEngine src/main.cpp src/game.cpp src/game.h src/constants.h)
+    add_executable(NGUEngine src/main.cpp src/game.cpp src/game.h src/constants.h src/Component.h src/Entity.h)
     target_link_libraries(NGUEngine SDL2main SDL2)
 endif (WIN32)
 
 if (UNIX)
     find_package(SDL2 REQUIRED)
 
-    add_executable(NGUEngine src/main.cpp src/game.cpp src/game.h src/constants.h)
+    add_executable(NGUEngine src/main.cpp src/game.cpp src/game.h src/constants.h src/Component.h src/Entity.h)
     target_link_libraries(NGUEngine ${SDL2_LIBRARIES})
 endif (UNIX)
 
