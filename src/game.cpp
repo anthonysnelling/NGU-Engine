@@ -1,6 +1,7 @@
 #include <iostream>
 #include "constants.h"
 #include "game.h"
+#include "../lib/glm/glm.hpp"
 
 Game::Game()
 {
@@ -16,10 +17,8 @@ bool Game::IsRunning() const
     return this->isRunning;
 }
 
-float projectilePosX{0.0f};
-float projectilePosY{0.0f};
-float projectileVelX{80.0f};
-float projectileVelY{80.0f};
+glm::vec2 projectilePos = glm::vec2(0.0f, 0.0f);
+glm::vec2 projectileVel = glm::vec2(50.0f, 50.0f);
 
 void Game::Initialize(int width, int height)
 {
@@ -66,8 +65,8 @@ void Game::ProcessInput()
 //            Just experimenting with keys presses
 //            if(event.key.keysym.sym == SDLK_r)
 //            {
-//                projectileVelX *= -1;
-//                projectileVelY *= -1;
+//                projectileVel.x *= -1;
+//                projectileVel.y *= -1;
 //            }
             break;
         default:
@@ -94,8 +93,11 @@ void Game::Update()
     //Clamp delta time to a maximum value
     deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
 
-    projectilePosX += projectileVelX * deltaTime;
-    projectilePosY += projectileVelY * deltaTime;
+    // Use Delta time to update my game objects
+    projectilePos = glm::vec2(
+            projectilePos.x + projectileVel.x * deltaTime,
+            projectilePos.y + projectileVel.y * deltaTime
+    );
 }
 
 void Game::Render()
@@ -104,8 +106,8 @@ void Game::Render()
     SDL_RenderClear(renderer);
 
     SDL_Rect projectile{
-            (int) projectilePosX,
-            (int) projectilePosY,
+            (int) projectilePos.x,
+            (int) projectilePos.y,
             10,
             10
     };
