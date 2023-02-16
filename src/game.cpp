@@ -1,7 +1,11 @@
 #include <iostream>
 #include "constants.h"
 #include "game.h"
+//#include "TransformComponent.h"
 #include "../lib/glm/glm.hpp"
+
+EntityManager manager;
+SDL_Renderer* Game::renderer;
 
 Game::Game()
 {
@@ -16,9 +20,6 @@ bool Game::IsRunning() const
 {
     return this->isRunning;
 }
-
-glm::vec2 projectilePos = glm::vec2(0.0f, 0.0f);
-glm::vec2 projectileVel = glm::vec2(50.0f, 50.0f);
 
 void Game::Initialize(int width, int height)
 {
@@ -93,11 +94,9 @@ void Game::Update()
     //Clamp delta time to a maximum value
     deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
 
-    // Use Delta time to update my game objects
-    projectilePos = glm::vec2(
-            projectilePos.x + projectileVel.x * deltaTime,
-            projectilePos.y + projectileVel.y * deltaTime
-    );
+    //TODO:
+    //Call the manager.update to update all the entities as function of deltatime.
+
 }
 
 void Game::Render()
@@ -105,15 +104,8 @@ void Game::Render()
     SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
 
-    SDL_Rect projectile{
-            (int) projectilePos.x,
-            (int) projectilePos.y,
-            10,
-            10
-    };
-
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &projectile);
+    //TODO:
+    // Call the manager.render to render all entities.
 
     SDL_RenderPresent(renderer);
 }

@@ -4,8 +4,11 @@
 
 #ifndef NGUENGINE_ENTITY_H
 #define NGUENGINE_ENTITY_H
+
 #include <vector>
 #include <string>
+#include "EntityManager.h"
+#include "Component.h"
 
 class Component;
 class EntityManager;
